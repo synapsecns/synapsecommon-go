@@ -1,6 +1,6 @@
 # synapsecommon-go
 
-[![Tests](https://img.shields.io/github/workflow/status/synapsecns/synapsecommon-go/Tests/master?event=push&label=tests)](https://github.com/synapsecns/synapsecommon-go/actions/workflows/tests.yaml)
+[![Tests](https://img.shields.io/github/workflow/status/synapsecns/synapsecommon-go/Test/master?event=push&label=tests)](https://github.com/synapsecns/synapsecommon-go/actions/workflows/test.yml)
 [![Coverags](https://img.shields.io/coveralls/github/synapsecns/synapsecommon-go/master?label=coverage)](https://coveralls.io/github/synapsecns/synapsecommon-go?branch=master)
 
 
