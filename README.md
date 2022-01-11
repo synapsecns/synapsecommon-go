@@ -1,7 +1,7 @@
 # synapsecommon-go
 
-[![Tests](https://img.shields.io/github/workflow/status/synapsecns/synapsecommon-go/Tests/master?event=push&label=tests)](https://github.com/synapsecns/synapsecommon-go/actions/workflows/tests.yaml)
-[![Coverags](https://img.shields.io/coveralls/github/synapsecns/synapsecommon-go/master?label=coverage)](https://coveralls.io/github/synapsecns/synapsecommon-go?branch=master)
+[![Tests](https://img.shields.io/github/workflow/status/synapsecns/synapsecommon-go/Test/master?event=push&label=tests)](https://github.com/synapsecns/synapsecommon-go/actions/workflows/test.yml)
+[![Coverags](https://coveralls.io/repos/github/synapsecns/synapsecommon-go/badge.svg?branch=master)](https://coveralls.io/github/synapsecns/synapsecommon-go?branch=master)
 
 
 Utility functions, ABI wrappers, and more, most or all of which are used in various synapsecns Go codebases.
