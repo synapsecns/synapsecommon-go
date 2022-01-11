@@ -1,0 +1,49 @@
+name: Build-Release
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build_release:
+    runs-on: ubuntu-latest
+    if: ${{ !contains(toJSON(github.event.commits.*.message), '[ci nobuild]') }}
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@v2
+
+      - name: Git Fetch Unshallow
+        run: git fetch --prune --unshallow
+
+      - name: Enviornment variables
+        uses: franzdiebold/github-env-vars-action@v1.0.0
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+
+      - name: Bump version and push tag
+        uses: anothrNick/github-tag-action@1.33.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: true
+
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.17
+
+      - name: Go modules cache
+        uses: actions/cache@v2
+        with:
+          path: ~/go/pkg/mod
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
+
+      - name: Run GoReleaser
+        uses: goreleaser/goreleaser-action@v2
+        with:
+          version: latest
+          args: release --rm-dist
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

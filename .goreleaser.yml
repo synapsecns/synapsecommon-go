@@ -1,0 +1,52 @@
+# Documentation at http://goreleaser.com
+project_name: synapsecommon-go
+
+# Environment variables
+env:
+  - GO111MODULE=on
+
+builds:
+  - skip: true
+
+release:
+  name_template: "{{.ProjectName}}-{{.Version}}"
+  github:
+    owner: synapsecns
+    name: synapsecommon-go
+  header: |
+    ## sdk-go ({{ .Tag }})
+    New release!
+
+
+checksum:
+  name_template: 'checksums.txt'
+
+source:
+  enabled: true
+  name_template: '{{ .ProjectName }}-{{ .Version }}'
+  format: tar.gz
+
+#signs:
+#  -
+#    artifacts: checksum
+#
+#    args:
+#      - "--batch"
+#      - "-u"
+#      - "{{ .Env.GPG_FINGERPRINT }}"
+#      - "--output"
+#      - "${signature}"
+#      - "--detach-sign"
+#      - "${artifact}"
+
+
+snapshot:
+  name_template: "{{ .Tag }}-next"
+
+
+changelog:
+  filters:
+    exclude:
+      - '\[ci release\]'
+      - '^docs:'
+      - '^test:'
