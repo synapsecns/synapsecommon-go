@@ -8,6 +8,7 @@ import (
 
 	"github.com/pkg/errors"
 
+	"github.com/synapsecns/synapsecommon-go/bigfloat"
 	"github.com/synapsecns/synapsecommon-go/bigint"
 )
 
@@ -33,7 +34,24 @@ func ToEther(amt interface{}, fromUnit Unit) (*big.Float, error) {
 	}
 
 	fromInt := func(amt *big.Int) *big.Float {
-		return fromFloat(newEther().SetInt(amt))
+		if fromUnit == Wei {
+			pow10, _ := makePow10(18).Int(nil)
+
+			quo := new(big.Int)
+			rem := new(big.Int)
+			quo, _ = amt.QuoRem(amt, pow10, rem)
+
+			f := new(big.Float)
+			f.Add(
+				bigfloat.FromUint64(quo.Uint64()),
+				bigfloat.FromUint64(rem.Uint64()),
+			)
+
+			return f
+		}
+		ether := newEther()
+		ether = ether.SetInt(amt)
+		return fromFloat(ether)
 	}
 
 	if s, ok := amt.(string); ok {

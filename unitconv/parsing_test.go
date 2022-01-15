@@ -57,6 +57,12 @@ func TestParseEther(t *testing.T) {
 			false,
 		},
 		{
+			"from wei bigint",
+			args{bigint.FromUint64(5000000000000000000), Wei},
+			newEther().SetFloat64(5),
+			false,
+		},
+		{
 			"from wei big.Int",
 			args{weiBigInt, Wei},
 			newEther().SetFloat64(744),
@@ -185,6 +191,18 @@ func TestParseWei(t *testing.T) {
 			"from TEther",
 			args{"0.000000000744", TEther},
 			weiBigInt,
+			false,
+		},
+		{
+			"from ether float64",
+			args{5.0, Ether},
+			bigint.FromUint64(5000000000000000000),
+			false,
+		},
+		{
+			"from ether float32",
+			args{float32(5.0), Ether},
+			bigint.FromUint64(5000000000000000000),
 			false,
 		},
 		{
