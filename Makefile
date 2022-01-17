@@ -1,6 +1,6 @@
 
 
-.PHONY: test lint fmt fmt-all generate test-local setup
+.PHONY: test lint fmt fmt-all generate test-local setup-local
 
 test:
 	@go test ./... -v
@@ -8,7 +8,7 @@ test:
 test-ci:
 	go test -v -coverprofile=profile.cov ./...
 
-test-local: setup
+test-local: setup-local
 	@./scripts/shdotenv -e .env go test -v ./...
 
 lint:
@@ -20,6 +20,6 @@ fmt:
 fmt-all:
 	@gofmt -s -w ./..
 
-setup:
+setup-local:
 	@mkdir -p ./scripts
 	@if [[ ! -f ./scripts/shdotenv ]]; then wget https://github.com/ko1nksm/shdotenv/releases/latest/download/shdotenv -O ./scripts/shdotenv; chmod +x ./scripts/shdotenv; fi
